@@ -5,19 +5,13 @@ ISO_CHECKSUM=/tmp/macos-10.13.iso.sha512
 
 all: install-boxes
 
-install-boxes: install-box-virtualbox install-box-vmware
+install-boxes: install-box-virtualbox
 
 install-box-virtualbox: macos-virtualbox.box
-	vagrant box add -f --name mcandre/macos --provider virtualbox macos-virtualbox.box
-
-install-box-vmware: macos-vmware.box
-	vagrant box add -f --name mcandre/macos --provider vmware_desktop macos-vmware.box
+	vagrant box add -f --name snake-charmers/macos --provider virtualbox macos-virtualbox.box
 
 macos-virtualbox.box: macos.json $(ISO) $(ISO_CHECKSUM) *.sh
 	PACKER_LOG=1 packer build -force -only virtualbox-iso macos.json
-
-macos-vmware.box: macos.json $(ISO) $(ISO_CHECKSUM) *.sh
-	PACKER_LOG=1 packer build -force -only vmware-iso macos.json
 
 clean: clean-packer clean-boxes clean-vagrant clean-artifacts
 
