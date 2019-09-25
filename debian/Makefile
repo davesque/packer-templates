@@ -5,7 +5,7 @@ all: install-boxes
 install-boxes: install-box-amd64-virtualbox
 
 install-box-amd64-virtualbox: debian-amd64-virtualbox.box
-	vagrant box add -f --name mcandre/debian-amd64 --provider virtualbox debian-amd64-virtualbox.box
+	vagrant box add -f --name snake-charmers/debian-amd64 --provider virtualbox debian-amd64-virtualbox.box
 
 debian-amd64-virtualbox.box: debian-amd64.json http/p *.sh
 	PACKER_LOG=1 packer build -force -only virtualbox-iso debian-amd64.json
